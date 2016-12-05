@@ -16,7 +16,7 @@ class HomeFinder extends React.Component {
         initialRoute={{
           title: 'Home Finder',
           component: SearchPage
-        }}/>
+      }}/>
     );
   }
 }

@@ -21,6 +21,20 @@ class SearchPage extends Component {
         <Text style={styles.description}>
           Search by place-name, postcode or search near your location.
         </Text>
+        <View style={styles.flowRight}>
+				  <TextInput
+				    style={styles.searchInput}
+				    placeholder='Search via name or postcode'/>
+				  <TouchableHighlight style={styles.button}
+				      underlayColor='#99d9f4'>
+				    <Text style={styles.buttonText}>Go</Text>
+				  </TouchableHighlight>
+				</View>
+				<TouchableHighlight style={styles.button}
+				    underlayColor='#99d9f4'>
+				  <Text style={styles.buttonText}>Location</Text>
+				</TouchableHighlight>
+				<Image source={require('./Resources/house.png')} style={styles.image}/>
       </View>
     );
   }
@@ -34,8 +48,45 @@ var styles = StyleSheet.create({
 		color: '#656565'
 	},
 	container: {
+		padding: 30,
 		marginTop: 65,
 		alignItems: 'center'
+	},
+	flowRight: {
+	  flexDirection: 'row',
+	  alignItems: 'center',
+	  alignSelf: 'stretch'
+	},
+	buttonText: {
+	  fontSize: 18,
+	  color: 'white',
+	  alignSelf: 'center'
+	},
+	button: {
+	  height: 36,
+	  flexDirection: 'row',
+	  backgroundColor: '#48BBEC',
+	  borderColor: '#48BBEC',
+	  borderWidth: 1,
+	  borderRadius: 8,
+	  marginBottom: 10,
+	  alignSelf: 'stretch',
+	  justifyContent: 'center'
+	},
+	searchInput: {
+	  height: 36,
+	  padding: 4,
+	  marginRight: 5,
+	  flex: 4,
+	  fontSize: 18,
+	  borderWidth: 1,
+	  borderColor: '#48BBEC',
+	  borderRadius: 8,
+	  color: '#48BBEC'
+	},
+	image: {
+  	width: 150,
+  	height: 100
 	}
 });
 
