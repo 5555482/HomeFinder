@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
   Image
 } from 'react-native';
+var SearchResults = require('./SearchResults');
 
 function urlForQueryAndPage(key, value, pageNumber) {
   var data = {
@@ -58,7 +59,11 @@ class SearchPage extends Component {
 	_handleResponse(response) {
 	  this.setState({ isLoading: false , message: '' });
 	  if (response.application_response_code.substr(0, 1) === '1') {
-	    console.log('Properties found: ' + response.listings.length);
+	    this.props.navigator.push({
+			  title: 'Results',
+			  component: SearchResults,
+			  passProps: {listings: response.listings}
+			});
 	  } else {
 	    this.setState({ message: 'Location not recognized; please try again.'});
 	  }
@@ -67,11 +72,26 @@ class SearchPage extends Component {
 	  var query = urlForQueryAndPage('place_name', this.state.searchString, 1);
 	  this._executeQuery(query);
 	}
+	onLocationPressed() {
+  navigator.geolocation.getCurrentPosition(
+    location => {
+      var search = location.coords.latitude + ',' + location.coords.longitude;
+      this.setState({ searchString: search });
+      var query = urlForQueryAndPage('centre_point', search, 1);
+      this._executeQuery(query);
+    },
+    error => {
+      this.setState({
+        message: 'There was a problem with obtaining your location: ' + error
+      });
+    });
+	}
 
   render() {
 	  var spinner = this.state.isLoading ?
 	  ( <ActivityIndicator size='large'/> ) : ( <View/>);
   	console.log('SearchPage.render');
+  	
     return (
       <View style={styles.container}>
         <Text style={styles.description}>
@@ -92,7 +112,8 @@ class SearchPage extends Component {
 				  </TouchableHighlight>
 				</View>
 				<TouchableHighlight style={styles.button}
-				    underlayColor='#99d9f4'>
+				    underlayColor='#99d9f4'
+				    onPress={this.onLocationPressed.bind(this)}>
 				  <Text style={styles.buttonText}>Location</Text>
 				</TouchableHighlight>
 				<Image source={require('./Resources/house.png')} style={styles.image}/>

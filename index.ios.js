@@ -15,21 +15,15 @@ class HomeFinder extends React.Component {
         style={styles.container}
         initialRoute={{
           title: 'Home Finder',
-          component: SearchPage
+          component: SearchPage,
       }}/>
     );
   }
 }
 
-const styles = StyleSheet.create({
+var styles = ReactNative.StyleSheet.create({
   container: {
     flex: 1
-  },
-  text: {
-    backgroundColor: '#F5FCFF',
-    margin: 80,
-    fontSize: 30,
-  },
+  }
 });
-
 AppRegistry.registerComponent('HomeFinder', () => HomeFinder);
